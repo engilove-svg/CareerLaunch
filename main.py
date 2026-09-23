@@ -31,7 +31,7 @@ def main():
         choice = input("Enter your choice: ")
 
         if choice == "1":
-            print("\nYour Applications:")
+            print("\n-----Your Applications--------")
 
             if not applications:
                 print("No applications found.")

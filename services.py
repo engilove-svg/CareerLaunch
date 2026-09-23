@@ -5,12 +5,12 @@ from models import Application
 
 
 VALID_STATUSES = [
+    "To Apply",
     "Applied",
     "Interview",
     "Offer",
     "Rejected",
     "Withdrawn"
-    "ToApply"
 ]
 
 def validate_date(applied_date):
