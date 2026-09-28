@@ -14,7 +14,7 @@ from services import (
 
 
 def main():
-    applications = load_applications()
+    applications = load_applications()# it reads your saved data from storage.
 
     while True:
         print("\nWelcome to CareerLaunch!")
@@ -117,7 +117,7 @@ def main():
 
                if deleted_application:
                     save_applications(applications)
-                    print("Application delted successfully!")
+                    print("Application deleted successfully!")
                else:
                     print("Application not found.")
             except ValueError:
@@ -198,7 +198,7 @@ def main():
             except ValueError:
                 print("Please enter a valid numeric ID.")
                 
-        elif choice == "8":
+        elif choice == "9":
             print("Goodbye!")
             break
                 

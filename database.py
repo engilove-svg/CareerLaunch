@@ -7,15 +7,15 @@ def get_connection():
         host="localhost",
         dbname="careerlaunch",
         user="postgres",
-        password="pswd",
+        password="Khushasees12@",
         port=5432
     )
 
-
+#"Give me all job applications stored in the database."
 def get_applications():
     connection = get_connection()
     cursor = connection.cursor()
-
+#A cursor is the object Python uses to send SQL commands to PostgreSQL.
     cursor.execute("SELECT * FROM applications")
 
     applications = cursor.fetchall()
