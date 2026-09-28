@@ -1,5 +1,5 @@
 
-from storage import load_applications, save_applications
+from repository import load_applications, save_applications
 
 from services import (
     create_application,
