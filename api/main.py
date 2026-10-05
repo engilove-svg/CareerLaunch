@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from repository import ApplicationRepository
+from schemas import ApplicationCreate, ApplicationResponse
 
 
 app = FastAPI(
@@ -18,14 +19,13 @@ def home():
         "message": "Welcome to CareerLaunch API"
     }
 
-
-@app.get("/applications")
+@app.get("/applications", response_model=list[ApplicationResponse])
 def get_applications():
     applications = repository.get_all()
     return applications
 
 
-@app.get("/applications/{application_id}")
+@app.get("/applications/{application_id}", response_model=ApplicationResponse)
 def get_application(application_id: int):
     application = repository.get_by_id(application_id)
 
@@ -36,3 +36,12 @@ def get_application(application_id: int):
         )
 
     return application
+
+@app.post(
+    "/applications",
+    response_model=ApplicationResponse,
+    status_code=201
+)
+def create_application(application: ApplicationCreate):
+    new_application = repository.add(application)
+    return new_application

@@ -1,5 +1,5 @@
 import psycopg
-
+from psycopg.rows import dict_row
 
 DATABASE_URL = "postgresql://postgres:Khushasees12@@localhost:5432/careerlaunch"
 
@@ -18,7 +18,7 @@ class ApplicationRepository:
 
     def add(self, application):
         with get_connection() as connection:
-            with connection.cursor() as cursor:#A cursor is the object we use to execute SQL commands.
+            with connection.cursor(row_factory=dict_row) as cursor:#A cursor is the object we use to execute SQL commands.
                 cursor.execute(
                     """
                     INSERT INTO applications
@@ -30,21 +30,30 @@ class ApplicationRepository:
                         application_date
                     )
                     VALUES (%s, %s, %s, %s, %s)
+                    RETURNING
+                        id,
+                        company_name,
+                        job_title,
+                        status,
+                        notes,
+                        application_date
                     """,
                     (
-                        application.company,
-                        application.role,
+                        application.company_name,
+                        application.job_title,
                         application.status,
                         application.notes,
-                        application.applied_date,
+                        application.application_date,
                     )
                 )
-
+                new_application= cursor.fetchone()
             connection.commit()
+
+            return new_application
 
     def get_all(self):
         with get_connection() as connection:
-            with connection.cursor() as cursor:
+            with connection.cursor(row_factory=dict_row) as cursor:
                 cursor.execute(
                     """
                     SELECT
@@ -62,7 +71,7 @@ class ApplicationRepository:
                 return cursor.fetchall()#all rows
     def get_by_id(self, application_id):
         with get_connection() as connection:
-            with connection.cursor() as cursor:
+            with connection.cursor(row_factory=dict_row) as cursor:
                 cursor.execute(
                     """
                     SELECT
