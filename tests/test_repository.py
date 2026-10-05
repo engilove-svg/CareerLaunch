@@ -1,18 +1,19 @@
 from models import Application
+from models import Application
 from repository import ApplicationRepository
 
 
 repository = ApplicationRepository()
 
-application = Application(
+test_application = Application(
     id=0,
-    company="OLG",
-    role="Customer Care Specialist",
+    company="Test Company",
+    role="Test Developer",
     status="Applied",
     applied_date="2026-09-28",
-    notes="Applied through OLG careers"
+    notes="Temporary test application"
 )
 
-repository.add(application)
+repository.add(test_application)
 
-print("Application added successfully!")
+print("Test application added!")

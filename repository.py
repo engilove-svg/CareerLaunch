@@ -1,11 +1,17 @@
 import psycopg
 
 
-DATABASE_URL = "your_postgresql_connection_string"
+DATABASE_URL = "postgresql://postgres:Khushasees12@@localhost:5432/careerlaunch"
 
 
 def get_connection():
-    return psycopg.connect(DATABASE_URL)
+    return psycopg.connect(
+        host="localhost",
+        port=5432,
+        dbname="careerlaunch",
+        user="postgres",
+        password="Khushasees12@"
+    )
 
 
 class ApplicationRepository:
@@ -99,7 +105,7 @@ class ApplicationRepository:
                 )
 
             connection.commit()
-            
+
     def delete(self, application_id):
         with get_connection() as connection:
             with connection.cursor() as cursor:
