@@ -23,3 +23,7 @@ class ApplicationUpdate(BaseModel):
     status: str | None = None
     application_date: date | None = None
     notes: str | None = None
+
+class UserCreate(BaseModel):
+    email: str
+    password: str
