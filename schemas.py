@@ -16,3 +16,10 @@ class ApplicationCreate(BaseModel):
     status: str
     application_date: date
     notes: str | None = None
+
+class ApplicationUpdate(BaseModel):
+    company_name: str | None = None
+    job_title: str | None = None
+    status: str | None = None
+    application_date: date | None = None
+    notes: str | None = None

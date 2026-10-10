@@ -91,7 +91,7 @@ class ApplicationRepository:
 
     def update(self, application_id, application):
         with get_connection() as connection:
-            with connection.cursor() as cursor:
+            with connection.cursor(row_factory=dict_row) as cursor:
                 cursor.execute(
                     """
                     UPDATE applications
@@ -102,18 +102,27 @@ class ApplicationRepository:
                         notes = %s,
                         application_date = %s
                     WHERE id = %s
+                    RETURNING
+                        id,
+                        company_name,
+                        job_title,
+                        status,
+                        notes,
+                        application_date
                     """,
                     (
-                        application.company,
-                        application.role,
-                        application.status,
-                        application.notes,
-                        application.applied_date,
+                        application["company_name"],
+                        application["job_title"],
+                        application["status"],
+                        application["notes"],
+                        application["application_date"],
                         application_id,
                     )
                 )
-
+                updated_application=cursor.fetchone()
             connection.commit()
+
+            return updated_application
 
     def delete(self, application_id):
         with get_connection() as connection:
